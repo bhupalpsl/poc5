@@ -2,7 +2,7 @@ name: Deploy on Lambda
 
 on:
     workflow_run:
-      workflows: ["lambda-ci.yml"]  # Name of the first workflow
+      workflows: ["lambda-ci"]  # Name of the first workflow
       types:
         - completed
 
