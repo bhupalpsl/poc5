@@ -42,9 +42,13 @@ jobs:
               export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} --query authorizationToken --output text)
               aws configure set codeartifact_auth_token $CODEARTIFACT_AUTH_TOKEN 
               
-      - name: Upload to CodeArtifact
+      #- name: Upload to CodeArtifact
+       # run: |
+       #      aws codeartifact put-package-asset --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} --repository ${{ secrets.AWS_CODEARTIFACT_REPOSITORY }} --asset lambda_function.zip --asset-name lambda_function.zip
+      - name: Upload to CodeArtifact to S3
         run: |
-               aws codeartifact put-package-asset --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} --repository ${{ secrets.AWS_CODEARTIFACT_REPOSITORY }} --asset lambda_function.zip --asset-name lambda_function.zip
+             aws s3 cp lambda_function.zip s3://${{secrets.AWS_S3_BUCKET}}/lambda_function.zip
+
                        
 
 
