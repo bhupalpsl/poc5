@@ -1,4 +1,4 @@
-
-module "lambda-module" {
-  source = "github.com/bhupalpsl/lambda-module/'" 
+module "lambda" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "7.14.0"
 }
