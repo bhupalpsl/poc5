@@ -1,4 +1,4 @@
 
 module "lambda-module" {
-  source = "github.com/bhupalpsl/lambda-module" 
+  source = "github.com/bhupalpsl/lambda-module/'" 
 }

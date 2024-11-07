@@ -1,9 +1,10 @@
 name: Deploy on Lambda
 
 on:
-  push:
-    branches:
-      - main
+    workflow_run:
+      workflows: ["lambda-ci.yml"]  # Name of the first workflow
+      types:
+        - completed
 
 jobs:
   terraform:
