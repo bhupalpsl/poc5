@@ -24,10 +24,15 @@ jobs:
       - name: Zip Lambda function
         run: zip -r lambda_function.zip .
 
-      - name: Upload to Artifactory
+      - name: Install AWS CLI
         run: |
-          curl -u $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD \
-          -T lambda_function.zip "https://artifactory.example.com/artifactory/my-repo/lambda_function.zip"
-        env:
-          ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
-          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+          curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+          sudo installer -pkg AWSCLIV2.pkg -target /
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-east-1
+            
