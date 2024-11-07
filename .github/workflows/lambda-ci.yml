@@ -1,0 +1,33 @@
+name: Build and Store Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Zip Lambda function
+        run: zip -r lambda_function.zip .
+
+      - name: Upload to Artifactory
+        run: |
+          curl -u $ARTIFACTORY_USER:$ARTIFACTORY_PASSWORD \
+          -T lambda_function.zip "https://artifactory.example.com/artifactory/my-repo/lambda_function.zip"
+        env:
+          ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
+          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
