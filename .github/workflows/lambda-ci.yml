@@ -44,7 +44,8 @@ jobs:
               
       - name: Upload to CodeArtifact
         run: |
-               aws codeartifact put-asset --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} --repository ${{ secrets.AWS_CODEARTIFACT_REPOSITORY }} --asset lambda_function.zip --asset-name lambda_function.zip        
+               aws codeartifact put-package-asset --domain ${{ secrets.AWS_CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.AWS_CODEARTIFACT_DOMAIN_OWNER }} --repository ${{ secrets.AWS_CODEARTIFACT_REPOSITORY }} --asset lambda_function.zip --asset-name lambda_function.zip
+                       
 
 
             
