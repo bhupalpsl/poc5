@@ -9,7 +9,7 @@ variable "aws_region" {
 variable "lambda_function_name" {
   description = "The name of the Lambda function"
   type        = string
-  default     = "my_lambda_function"
+  #default     = "my_lambda_function"
 }
 
 variable "lambda_runtime" {
@@ -21,7 +21,7 @@ variable "lambda_runtime" {
 variable "lambda_handler" {
   description = "The handler function for Lambda"
   type        = string
-  default     = "lambda_function.lambda_handler"  # Adjust to your function's handler, e.g., main.handler for Python
+  #default     = "lambda_function.lambda_handler"  # Adjust to your function's handler, e.g., main.handler for Python
 }
 
 variable "lambda_memory_size" {
@@ -39,11 +39,11 @@ variable "lambda_timeout" {
 variable "lambda_s3_bucket" {
   description = "S3 bucket for Lambda code storage (if applicable)"
   type        = string
-  default     = "mybucket6011"  # Leave empty if uploading locally
+  #default     = "mybucket6011"  # Leave empty if uploading locally
 }
 
 variable "lambda_s3_key" {
   description = "S3 key for Lambda code storage (if applicable)"
   type        = string
-  default     = "lambda_function.zip"  # Leave empty if uploading locally
+  #default     = "lambda_function.zip"  # Leave empty if uploading locally
 }
