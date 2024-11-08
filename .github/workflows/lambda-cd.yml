@@ -31,6 +31,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Download  Artifact from S3
+        run: |
+             aws s3 cp s3://${{secrets.AWS_S3_BUCKET}}/lambda_function.zip lambda_function.zip    
+
       - name: Terraform Init
         run: terraform init
 
