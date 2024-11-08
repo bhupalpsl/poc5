@@ -1,9 +1,10 @@
 name: Deploy on Lambda
 
 on:
-  push:
-    branches:
-      - main
+    workflow_run:
+      workflows: ["lambda-ci"] # Name of the CI workflow to wait for
+      types:
+        - completed
 
 jobs:
   terraform:
