@@ -2,7 +2,7 @@ name: Deploy on Lambda
 
 on:
     workflow_run:
-      workflows: ["lambda-ci"] # Name of the CI workflow to wait for
+      workflows: ["lambda-ci.yml"] # Name of the CI workflow to wait for
       types:
         - completed
 
