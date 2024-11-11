@@ -16,14 +16,29 @@ resource "aws_lambda_function" "my_lambda" {
 }
 
 
-resource "aws_s3_bucket_object" "my_object" {
-  bucket = aws_s3_bucket.my_bucket.bucket  # Reference to the S3 bucket created above
-  key    = "my-folder/my-object.txt"       # Path and name of the object in the bucket
-  source = "path/to/local/file.txt"        # Local file path to upload
+# Permission for S3 to invoke Lambda
+resource "aws_lambda_permission" "allow_s3_invoke" {
+  statement_id  = "AllowS3Invoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.my_lambda.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = arn:aws:s3:::mybucket6011
+}
 
-  tags = {
-    Environment = "Dev"
+# S3 Bucket Notification to invoke Lambda
+resource "aws_s3_bucket_notification" "s3_to_lambda" {
+  bucket = var.lambda_s3_bucket 
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.my_lambda.arn
+    events              = ["s3:ObjectCreated:*"]  # Trigger on object creation
   }
+
+  depends_on = [aws_lambda_permission.allow_s3_invoke]
 }
 
 
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name              = "/aws/lambda/${aws_lambda_function.my_lambda.function_name}"
+  retention_in_days = 14  # Set your desired retention period
+}
