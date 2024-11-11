@@ -4,7 +4,10 @@ on:
     workflow_run:
       workflows: ["lambda-ci.yml"] # Name of the CI workflow to wait for
       types:
-        - completed       
+        - completed
+    push:
+        branches:
+        - main        
 
 jobs:
   terraform:
