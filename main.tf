@@ -22,8 +22,9 @@ resource "aws_lambda_permission" "allow_s3_invoke" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.my_lambda.function_name
   principal     = "s3.amazonaws.com"
-  source_arn    = arn:aws:s3:::mybucket6011
+  source_arn    = "arn:aws:s3:::mybucket6011"
 }
+
 
 # S3 Bucket Notification to invoke Lambda
 resource "aws_s3_bucket_notification" "s3_to_lambda" {
