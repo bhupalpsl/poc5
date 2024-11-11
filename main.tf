@@ -7,7 +7,7 @@ resource "aws_lambda_function" "my_lambda" {
   timeout       = var.lambda_timeout
   s3_bucket     = var.lambda_s3_bucket   # Use this when uploading zip from s3 bucket
   s3_key       = var.lambda_s3_key       # Use this when uploading zip from s3 bucket
-  s3_object_version = var.s3_object_version 
+  s3_object_version =  aws_s3_bucket_object.object.version_id 
   # Environment variables (optional)
   environment {
     variables = {
@@ -15,7 +15,6 @@ resource "aws_lambda_function" "my_lambda" {
     }
   }
 }
-
 
 # Permission for S3 to invoke Lambda
 resource "aws_lambda_permission" "allow_s3_invoke" {
@@ -39,3 +38,21 @@ resource "aws_s3_bucket_notification" "s3_to_lambda" {
   depends_on = [aws_lambda_permission.allow_s3_invoke]
 }
 
+resource "aws_s3_bucket_object" "object" {
+  bucket =  var.lambda_s3_bucket
+  key    =  var.lambda_s3_key
+  source =  "lambda_function.zip"                         #"path/to/file"     
+
+  # The filemd5() function is available in Terraform 0.11.12 and later
+  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
+  # etag = "${md5(file("path/to/file"))}"
+   etag = filemd5("lambda_function.zip")
+}
+
+
+output "s3_object_etag" {
+  value = aws_s3_bucket_object.object.etag
+}
+output "s3_object_version" {
+  value = aws_s3_bucket_object.object.version_id
+}

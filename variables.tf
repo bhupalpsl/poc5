@@ -47,8 +47,3 @@ variable "lambda_s3_key" {
   type        = string
   #default     = "lambda_function.zip"  # Leave empty if uploading locally
 }
-variable "s3_object_version" {
-  description = "S3 object "
-  type        = string
-  #default     = "lambda_function.zip"  # Leave empty if uploading locally
-}
