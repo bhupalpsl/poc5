@@ -18,12 +18,12 @@ terraform {
 resource "aws_s3_bucket_object" "object" {
   bucket =  var.lambda_s3_bucket
   key    =  var.lambda_s3_key
-  source =  var.lambda_s3_key                            #"path/to/file"     
+  source =  "D:\Teamcity DevOps Bootcamp Training Plan\poc5"                         #"path/to/file"     
 
   # The filemd5() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
   # etag = "${md5(file("path/to/file"))}"
-   etag = filemd5("path/to/file")
+   etag = filemd5("D:\Teamcity DevOps Bootcamp Training Plan\poc5")
 }
 
 
