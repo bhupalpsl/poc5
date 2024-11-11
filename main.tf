@@ -15,3 +15,15 @@ resource "aws_lambda_function" "my_lambda" {
   }
 }
 
+
+resource "aws_s3_bucket_object" "my_object" {
+  bucket = aws_s3_bucket.my_bucket.bucket  # Reference to the S3 bucket created above
+  key    = "my-folder/my-object.txt"       # Path and name of the object in the bucket
+  source = "path/to/local/file.txt"        # Local file path to upload
+
+  tags = {
+    Environment = "Dev"
+  }
+}
+
+
