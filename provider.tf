@@ -30,3 +30,8 @@ resource "aws_s3_bucket_object" "object" {
 output "s3_object_etag" {
   value = aws_s3_bucket_object.object.etag
 }
+
+
+output "s3_object_version" {
+  value = aws_s3_bucket_object.object.version_id
+}
