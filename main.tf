@@ -56,3 +56,15 @@ output "s3_object_etag" {
 output "s3_object_version" {
   value = aws_s3_bucket_object.object.version_id
 }
+
+
+# Lambda Function URL
+resource "aws_lambda_function_url" "example" {
+  function_name      = aws_lambda_function.my_lambda.function_name
+  authorization_type = "NONE" # Or use AWS_IAM for secured access
+}
+
+# Output the URL
+output "lambda_function_url" {
+  value = aws_lambda_function_url.example.function_url
+}
