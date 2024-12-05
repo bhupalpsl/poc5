@@ -11,4 +11,4 @@ def test_lambda_handler():
     response = lambda_function.lambda_handler(mock_event, mock_context)
     # Assert the response
     assert response["statusCode"] == 200
-    assert response["body"] == "Hello from Lambda! this is bhupal"    
+    assert response["body"] == "Hello from Lambda! this is bhupal"  
